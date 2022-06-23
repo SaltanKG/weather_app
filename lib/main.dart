@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: ((context) => const CityPage()),
+                    builder: ((context) => CityPage()),
                   ),
                 );
               },
@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
         width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("images/weather.jpg"),
+            image: AssetImage("assets/images/weather1.jpg"),
             fit: BoxFit.cover,
           ),
         ),
