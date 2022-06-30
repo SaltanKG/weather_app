@@ -34,20 +34,20 @@ class CityPage extends StatelessWidget {
               TextField(
                 controller: _textEditingController,
                 textAlign: TextAlign.center,
-                style: const TextStyle(color: Colors.white, fontSize: 22.0),
+                style: const TextStyle(color: Colors.white, fontSize: 20.0),
                 obscureText: false,
                 decoration: const InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white, width: 2.0),
                     borderRadius: BorderRadius.all(
-                      Radius.circular(15.0),
+                      Radius.circular(10.0),
                     ),
                   ),
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: Color.fromARGB(255, 233, 238, 190),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(
-                      Radius.circular(15.0),
+                      Radius.circular(10.0),
                     ),
                   ),
                   hintText: 'Напишите название города',
@@ -55,7 +55,7 @@ class CityPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 25.0,
+                height: 20.0,
               ),
               OutlinedButton(
                 onPressed: () {
@@ -66,15 +66,15 @@ class CityPage extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.all(Colors.cyan),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
                   ),
                 ),
                 child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8.0),
+                  padding: EdgeInsets.symmetric(horizontal: 13, vertical: 6.0),
                   child: Text(
                     "Найдите город",
-                    style: TextStyle(fontSize: 35.0, color: Colors.black),
+                    style: TextStyle(fontSize: 25.0, color: Colors.black),
                   ),
                 ),
               )

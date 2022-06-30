@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart' as http;
 import 'package:weather_app/city_page.dart';
 
 void main() {
@@ -16,21 +20,75 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: WeatherPage(),
+      // home: TestFuture(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({
+class WeatherPage extends StatefulWidget {
+  WeatherPage({
     Key key,
   }) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<WeatherPage> createState() => _WeatherPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _WeatherPageState extends State<WeatherPage> {
+  @override
+  void initState() {
+    _showWeatherByLocation();
+    super.initState();
+  }
+
+  Future<void> _showWeatherByLocation() async {
+    final position = await _getCurrentLocation();
+    log('Position.latitude==>${position.latitude}');
+    log('Position. longitude==>${position.longitude}');
+  }
+
+  Future<Position> _getCurrentLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    return await Geolocator.getCurrentPosition();
+  }
+
+  Future<void> getWeatherByLocation(@required Position position) async {
+    final client = http.Client();
+
+    try {
+      Uri uri = Uri.parse(
+          'https://api.openweathermap.org/data/2.5/weather?lat=42.6508288&lon=77.0965504&appid=a0d770bbd492c6c9b59c8a6d766682ef');
+      final response = await client.get(uri);
+      final body = response.body;
+
+      // log('AIP===>>${response}');
+      log('AIP===>>${body}');
+    } finally {
+      client.close();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
