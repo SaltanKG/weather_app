@@ -8,6 +8,7 @@ class CityPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenSize = MediaQuery.of(context).size.height;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -55,11 +56,12 @@ class CityPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 20.0,
+                height: 25.0,
               ),
               OutlinedButton(
                 onPressed: () {
                   FocusManager.instance.primaryFocus?.unfocus();
+                  Navigator.of(context).pop(_textEditingController.text);
                   log('_textEditingController===>${_textEditingController.text}');
                 },
                 style: ButtonStyle(
